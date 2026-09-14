@@ -116,9 +116,11 @@ class _LoginPageState extends State<LoginPage> {
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          child: Material(
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
               const Text(
                 'Welcome Back',
                 style: TextStyle(
@@ -213,6 +215,7 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
+      ),
       ),
     );
   }
