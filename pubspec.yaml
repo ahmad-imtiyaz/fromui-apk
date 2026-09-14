@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   forui: ^0.26.0
-  material_ui: ^1.2.0
   cupertino_icons: ^1.0.8
 
 dev_dependencies:

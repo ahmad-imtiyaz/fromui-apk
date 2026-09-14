@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart' as material;
+import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:material_ui/material_ui.dart';
 
 void main() {
   runApp(const Application());
@@ -12,25 +11,18 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final platform = FPlatformVariant.android;
-    final brightnessTheme = platform.desktop
+    final FThemeData brightnessTheme = platform.desktop
         ? FTheme.neutral.light.desktop
         : FTheme.neutral.light.touch;
 
     return MaterialApp(
       title: 'ForUI Auth Demo',
-      locale: const Locale('en', 'US'),
-      localizationsDelegates: FLocalizations.localizationsDelegates,
-      supportedLocales: FLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      theme: brightnessTheme.toApproximateMaterialTheme(),
-      builder: (context, child) => FTheme(
+      home: FTheme(
         data: brightnessTheme,
         platform: platform,
-        child: FToaster(
-          child: FTooltipGroup(child: child ?? const SizedBox()),
-        ),
+        child: const LoginPage(),
       ),
-      home: const LoginPage(),
     );
   }
 }
@@ -46,8 +38,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _usernameController = material.TextEditingController();
-  final _passwordController = material.TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _rememberMe = false;
   bool _isLoading = false;
 
@@ -82,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() => _isLoading = false);
         Navigator.push(
           context,
-          material.MaterialPageRoute(builder: (_) => DashboardPage()),
+          MaterialPageRoute(builder: (_) => const DashboardPage()),
         );
       }
     });
@@ -92,15 +84,15 @@ class _LoginPageState extends State<LoginPage> {
     showFDialog(
       context: context,
       builder: (context, style, animation) {
-        return material.SafeArea(
-          child: material.Column(
-            mainAxisSize: material.MainAxisSize.min,
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(title,
-                    style: const material.TextStyle(
-                        fontWeight: material.FontWeight.bold)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -125,24 +117,21 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            mainAxisAlignment: material.MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
                 'Welcome Back',
-                style: material.TextStyle(
+                style: TextStyle(
                   fontSize: 32,
-                  fontWeight: material.FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Masuk untuk melanjutkan',
-                style: material.TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: material.Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               const SizedBox(height: 32),
@@ -153,30 +142,30 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       const Align(
-                        alignment: material.Alignment.centerLeft,
+                        alignment: Alignment.centerLeft,
                         child: Text('Username'),
                       ),
                       const SizedBox(height: 8),
-                      material.TextField(
+                      TextField(
                         controller: _usernameController,
-                        decoration: const material.InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Masukkan username',
-                          border: material.InputBorder.none,
+                          border: InputBorder.none,
                         ),
                       ),
                       const SizedBox(height: 16),
 
                       const Align(
-                        alignment: material.Alignment.centerLeft,
+                        alignment: Alignment.centerLeft,
                         child: Text('Password'),
                       ),
                       const SizedBox(height: 8),
-                      material.TextField(
+                      TextField(
                         controller: _passwordController,
                         obscureText: true,
-                        decoration: const material.InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Masukkan password',
-                          border: material.InputBorder.none,
+                          border: InputBorder.none,
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -195,9 +184,9 @@ class _LoginPageState extends State<LoginPage> {
                             ? const SizedBox(
                                 width: 20,
                                 height: 20,
-                                child: material.CircularProgressIndicator(
+                                child: CircularProgressIndicator(
                                   strokeWidth: 2,
-                                  color: material.Colors.white,
+                                  color: Colors.white,
                                 ),
                               )
                             : const Text('Masuk'),
@@ -217,8 +206,8 @@ class _LoginPageState extends State<LoginPage> {
 
               Text(
                 'Belum punya akun? Daftar di sini',
-                style: material.TextStyle(
-                  color: material.Theme.of(context).colorScheme.primary,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
@@ -242,11 +231,11 @@ class DashboardPage extends StatelessWidget {
         title: const Text('Dashboard'),
         suffixes: [
           FHeaderAction(
-            icon: const Icon(material.Icons.notifications_none),
+            icon: const Icon(Icons.notifications_none),
             onPress: () {},
           ),
           FHeaderAction(
-            icon: const Icon(material.Icons.settings),
+            icon: const Icon(Icons.settings),
             onPress: () {},
           ),
         ],
@@ -256,15 +245,15 @@ class DashboardPage extends StatelessWidget {
         onChange: (index) {},
         children: [
           FBottomNavigationBarItem(
-            icon: const Icon(material.Icons.home),
+            icon: const Icon(Icons.home),
             label: const Text('Home'),
           ),
           FBottomNavigationBarItem(
-            icon: const Icon(material.Icons.menu_book),
+            icon: const Icon(Icons.menu_book),
             label: const Text('Books'),
           ),
           FBottomNavigationBarItem(
-            icon: const Icon(material.Icons.person),
+            icon: const Icon(Icons.person),
             label: const Text('Profile'),
           ),
         ],
@@ -274,26 +263,22 @@ class DashboardPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Card
             FCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Selamat Datang!',
-                    style: material.TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
-                      fontWeight: material.FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Anda berhasil login sebagai admin@gmail.com',
-                    style: material.TextStyle(
-                      color: material.Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.7),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ],
@@ -310,12 +295,12 @@ class DashboardPage extends StatelessWidget {
                     child: Column(
                       children: [
                         const Text('12',
-                            style: material.TextStyle(
-                                fontSize: 28, fontWeight: material.FontWeight.bold)),
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Text('Proyek',
-                            style: material.TextStyle(
-                                color: material.Theme.of(context)
+                            style: TextStyle(
+                                color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
                                     .withValues(alpha: 0.6))),
@@ -329,12 +314,12 @@ class DashboardPage extends StatelessWidget {
                     child: Column(
                       children: [
                         const Text('5',
-                            style: material.TextStyle(
-                                fontSize: 28, fontWeight: material.FontWeight.bold)),
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Text('Tugas',
-                            style: material.TextStyle(
-                                color: material.Theme.of(context)
+                            style: TextStyle(
+                                color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
                                     .withValues(alpha: 0.6))),
@@ -348,12 +333,12 @@ class DashboardPage extends StatelessWidget {
                     child: Column(
                       children: [
                         const Text('8',
-                            style: material.TextStyle(
-                                fontSize: 28, fontWeight: material.FontWeight.bold)),
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Text('File',
-                            style: material.TextStyle(
-                                color: material.Theme.of(context)
+                            style: TextStyle(
+                                color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
                                     .withValues(alpha: 0.6))),
@@ -380,15 +365,15 @@ class DashboardPage extends StatelessWidget {
                 showFDialog(
                   context: context,
                   builder: (context, style, animation) {
-                    return material.SafeArea(
-                      child: material.Column(
-                        mainAxisSize: material.MainAxisSize.min,
+                    return SafeArea(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           const Padding(
                             padding: EdgeInsets.all(16),
                             child: Text('Dashboard Info',
-                                style: material.TextStyle(
-                                    fontWeight: material.FontWeight.bold)),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold)),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16),
